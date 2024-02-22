@@ -1,21 +1,50 @@
 class Tendril
 {
   public final static int SEG_LENGTH = 4; //length of each segment in the tendril
-  private int myNumSegments, myX, myY;
-  private double myAngle;
-  
-  /**
-   Class constructor
-   len is how many segments in this tendril (each a fixed length, 4 is a good start)
-   theta is tendril starting angle in radians 
-   x, y  is the starting (x,y) coordinate
-   */
-  public Tendril(int len, double theta, int x, int y)
+  private int myNumSegments, myX, myY, len;
+  private float myAngle1, myAngle2;
+  public Tendril(int leng, int x, int y)
   {
-    //your code here
+    myX = x;
+    myY = y;
+    len = leng;
+    myAngle1 = random(-10, 10)+1;
+    myAngle2 = random(-10, 10)+1;
   }
   public void show()
   {
-    //your code here
+    int i = 0;
+    stroke(225,len*7.5,len*5);
+    if (myAngle1 > 0 && myAngle2 > 0) {
+      while (i < len) {
+        line(myX, myY, myX+= random(0, myAngle1), myY+= random(0, myAngle2));
+        i+=1;
+      }
+      Cluster c = new Cluster(len/2, myX, myY);
+    } else if (myAngle1 < 0 && myAngle2 > 0) {
+      while (i < len) {
+        line(myX, myY, myX+= random(myAngle1, 0), myY+= random(0, myAngle2));
+        i+=1;
+      }
+      Cluster c = new Cluster(len/2, myX, myY);
+    } else if (myAngle1 > 0 && myAngle2 < 0) {
+      while (i < len) {
+        line(myX, myY, myX+= random(0, myAngle1), myY+= random(myAngle2, 0));
+        i+=1;
+      }
+      Cluster c = new Cluster(len/2, myX, myY);
+    } else if (myAngle1 < 0 && myAngle2 < 0) {
+      while (i < len) {
+        line(myX, myY, myX+= random(myAngle1, 0), myY+= random(myAngle2, 0));
+        i+=1;
+      }
+      Cluster c = new Cluster(len/2, myX, myY);
+    }
+  }
+  public int getX() {
+    return myX;
+  }
+  public int getY() {
+    return myY;
   }
 }
